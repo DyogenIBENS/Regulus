@@ -1,0 +1,45 @@
+
+anoCar1	Anolis.carolinensis	Lizard	1.7	0.52	Anocar	anoCar2
+bosTau4	Bos.taurus	Cow	2.65	0.81	Bostau	bosTau6
+calJac1	Callithrix.jacchus	Marmoset	2.76	0.84	Caljac	calJac3
+canFam2	Canis.familiaris	Dog	2.38	0.72	Canfam	canFam2
+cavPor3	Cavia.porcellus	Guinea Pig	2.66	0.81	Cavpor	cavPor3
+choHof1	Choloepus.hoffmanni	Sloth	2.06	0.63	Chohof	choHof1
+danRer6	Danio.rerio	Zebrafish	1.51	0.46	Danrer	danRer7
+dasNov2	Dasypus.novemcinctus	Armadillo	2.37	0.72	Dasnov	dasNov2
+dipOrd1	Dipodomys.ordii	Kangaroo Rat	1.84	0.56	Dipord	dipOrd1
+echTel1	Echinops.telfairi	Tenrec	2.11	0.64	Echtel	echTel1
+equCab2	Equus.caballus	Horse	2.43	0.74	Equcab	equCab2
+eriEur1	Erinaceus.europaeus	Hedgehog	2.13	0.65	Erieur	eriEur1
+felCat3	Felis.catus	Cat	1.64	0.5	Felcat	felCat3
+fr2	Takifugu.rubripes	Fugu	0.39	0.12	Takrub	fr2
+galGal3	Gallus.gallus	Chicken	1.05	0.32	Galgal	galGal3
+gasAcu1	Gasterosteus.aculeatus	Stickleback	0.45	0.14	Gasacu	gasAcu1
+gorGor1	Gorilla.gorilla	Gorilla	2.83	0.86	Gorgor	gorGor1
+hg19	Homo.sapiens	Human	3.29	1	Homsap	hg19
+loxAfr3	Loxodonta.africana	Elephant	3.12	0.95	Loxafr	loxAfr3
+macEug1	Macropus.eugenii	Wallaby	2.55	0.78	Maceug	macEug1
+micMur1	Microcebus.murinus	Mouse Lemur	1.85	0.56	Micmur	micMur1
+mm9	Mus.musculus	Mouse	3.42	1.04	Musmus	mm9
+monDom5	Monodelphis.domestica	Opossum	3.5	1.06	Mondom	monDom5
+myoLuc1	Myotis.lucifugus	Microbat	1.97	0.6	Myoluc	myoLuc1
+ochPri2	Ochotona.princeps	Pika	1.92	0.58	Ochpri	ochPri2
+ornAna1	Ornithorhynchus.anatinus	Platypus	1.92	0.58	Ornana	ornAna1
+oryCun2	Oryctolagus.cuniculus	Rabbit	2.6	0.79	Orycun	oryCun2
+oryLat2	Oryzias.latipes	Medaka	0.7	0.21	Orylat	oryLat2
+otoGar1	Otolemur.garnettii	Bushbaby	2.36	0.72	Otogar	otoGar1
+panTro2	Pan.troglodytes	Chimp	3	0.91	Pantro	panTro3
+ponAbe2	Pongo.abelii	Orangutan	3.11	0.95	Ponabe	ponAbe2	#Ponpyg/pygmaeus
+proCap1	Procavia.capensis	Rock Hyrax	2.41	0.73	Procap	proCap1
+pteVam1	Pteropus.vampyrus	Megabat	1.84	0.56	Ptevam	pteVam1
+rheMac2	Macaca.mulatta	Rhesus	3.09	0.94	Macmul	rheMac2
+rn4	Rattus.norvegicus	Rat	2.51	0.76	Ratnor	rn4
+sorAra1	Sorex.araneus	Shrew	1.83	0.56	Sorara	sorAra1
+speTri1	Spermophilus.tridecemlineatus	Squirrel	1.91	0.58	Spetri	speTri1
+taeGut1	Taeniopygia.guttata	Zebra Finch	1.22	0.37	Taegut	taeGut1
+tarSyr1	Tarsius.syrichta	Tarsier	2.77	0.84	Tarsyr	tarSyr1
+tetNig2	Tetraodon.nigroviridis	Tetraodon	0.34	0.1	Tetnig	tetNig2
+tupBel1	Tupaia.belangeri	Tree Shrew	2.14	0.65	Tupbel	tupBel1
+turTru1	Tursiops.truncatus	Dolphin	2.3	0.7	Turtru	turTru1
+vicPac1	Vicugna.pacos	Alpaca	1.92	0.58	Vicpac	vicPac1
+xenTro2	Xenopus.tropicalis	Xenopus	1.36	0.41	Xentro	xenTro3
