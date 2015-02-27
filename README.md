@@ -9,17 +9,17 @@ Usage example:
 scanmaf.py chrX.maf.gz -w 10 -x 3 -i 90 -f 10 -t 88 -n 8 -l 80 > chrX.res
  
 Options: 
-w : Minimum size of anchor window to initiate a search [default = 50 bp]
-x : Max cutoff for consecutive column mismatches [default = 3 columns]
-i : Minimum %ID of alignment in anchor window [default = 90 %]
-s : Minimum score of a block in the MAF file before it is considered for a search [default = 300]
-f : Filters out output profiles that contain low complexity sequences and/or that fall below the length provided as argument and/or that overlap small cap nucleotides (repeat masked) in one of the species given in the -c option. Low complexity means that at least one base has a frequency below 5%. [default = 0 bp]
-l : Threshold for low complexity sequences filtering; sequences containing more thant L% of the same nucleotide are discarded [default = 80%]
-t : inimum similarity of a column to be considered as conserved [default = 60 %]
-n : Minimum number of species required in the alignment block to be considered [default = 6]
-c : Catalogue of species (at least 2) to consider when searching the MAF file for the regions of interest. Argument is a coma separated list of species, with species names as indicated in the MAF file. [compulsory ; default = None]
-a : If this option is set, a directory called SM_annot must be in the current directory with annotation files in UCSC format (>10 tab separated columns) called species_annot.ucsc, where species is replaced by the species names as indicated in the MAF file. Annotation coordinates are O-based, in UCSC fashion. The argument is a coma separated list of species for which annotations files are provided in the SM_annot directory. When this option is set, no output will be produced in regions of the multiple alignements of the MAF file that overlap the annotations in these genomes. Generally these annotations are non redundant (e.g. ensembl genes) and will be used as provided. This option can be combined with -r for other species.  [default = none].
-r : If this option is set, a directory called SM_annot must be in the current directory with annotation files in rr format. This format is produced by the remred.py script, which removes redundancy in large redundant annotation files such as mammalian EST alignment files. Annotation coordinates are O-based, in UCSC fashion. The argument is a coma separated list of species for which annotations files are provided in the SM_annot directory. When this option is set, no output will be produced in regions of the multiple alignements of the MAF file that overlap the annotations in these genomes. This option can be combined with -a for other species. In general, using this option instead of -a reduces computation time [default = none]
+- w : Minimum size of anchor window to initiate a search [default = 50 bp]
+- x : Max cutoff for consecutive column mismatches [default = 3 columns]
+- i : Minimum %ID of alignment in anchor window [default = 90 %]
+- s : Minimum score of a block in the MAF file before it is considered for a search [default = 300]
+- f : Filters out output profiles that contain low complexity sequences and/or that fall below the length provided as argument and/or that overlap small cap nucleotides (repeat masked) in one of the species given in the -c option. Low complexity means that at least one base has a frequency below 5%. [default = 0 bp]
+- l : Threshold for low complexity sequences filtering; sequences containing more thant L% of the same nucleotide are discarded [default = 80%]
+- t : inimum similarity of a column to be considered as conserved [default = 60 %]
+- n : Minimum number of species required in the alignment block to be considered [default = 6]
+- c : Catalogue of species (at least 2) to consider when searching the MAF file for the regions of interest. Argument is a coma separated list of species, with species names as indicated in the MAF file. [compulsory ; default = None]
+- a : If this option is set, a directory called SM_annot must be in the current directory with annotation files in UCSC format (>10 tab separated columns) called species_annot.ucsc, where species is replaced by the species names as indicated in the MAF file. Annotation coordinates are O-based, in UCSC fashion. The argument is a coma separated list of species for which annotations files are provided in the SM_annot directory. When this option is set, no output will be produced in regions of the multiple alignements of the MAF file that overlap the annotations in these genomes. Generally these annotations are non redundant (e.g. ensembl genes) and will be used as provided. This option can be combined with -r for other species.  [default = none].
+- r : If this option is set, a directory called SM_annot must be in the current directory with annotation files in rr format. This format is produced by the remred.py script, which removes redundancy in large redundant annotation files such as mammalian EST alignment files. Annotation coordinates are O-based, in UCSC fashion. The argument is a coma separated list of species for which annotations files are provided in the SM_annot directory. When this option is set, no output will be produced in regions of the multiple alignements of the MAF file that overlap the annotations in these genomes. This option can be combined with -a for other species. In general, using this option instead of -a reduces computation time [default = none]
 
 
 ### genes_env.py ###
