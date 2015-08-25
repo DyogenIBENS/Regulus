@@ -1,15 +1,5 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-# 25/02/15
-# scanmaf.py version 1.0, part of the Regulus suite
-# python 2.7
-# Copyright © 2015 IBENS/Dyogen : Magali Naville and Hugues ROEST CROLLIUS
-# mail : hrc@ens.fr or magali.naville@ens-lyon.fr
-# Related Publication: Naville et al. (2015) Nature Communications
-# This is free software, you may copy, modify and/or distribute this work under the terms of the GNU General Public License, version 3 (GPL v3) or later and the CeCiLL v2 license in France
-
-
-
 # Scans a maf multiple alignement to search regions of particular conservation.
 
 import sys
@@ -65,13 +55,9 @@ parser.add_option("-f", dest="F", default="0", help="Filters out output profiles
 parser.add_option("-l", dest="L", default="80", help="Threshold for low complexity sequences filtering; sequences containing more thant L% of the same nucleotide are discarded [default = 80%]")
 parser.add_option("-t", dest='T',default="60", help="Minimum similarity of a column to be considered as conserved [default = 60 %]")
 parser.add_option("-n", dest='N',default="6", help="Minimum number of species required in the alignment block to be considered [default = 6]")
-#parser.add_option("-c", dest="CAT", default="", help="Catalogue of species (at least 2) to consider when searching the MAF file for the regions of interest. Argument is a coma separated list of species, with species names as indicated in the MAF file. [compulsory ; default = None]")
-#parser.add_option("-a", dest="annot", default="", help="If this option is set, a directory called SM_annot must be in the current directory with annotation files in UCSC format (>10 tab separated columns) called species_annot.ucsc, where species is replaced by the species names as indicated in the MAF file. Annotation coordinates are O-based, in UCSC fashion. The argument is a coma separated list of species for which annotations files are provided in the SM_annot directory. When this option is set, no output will be produced in regions of the multiple alignements of the MAF file that overlap the annotations in these genomes. Generally these annotations are non redundant (e.g. ensembl genes) and will be used as provided. This option can be combined with -r for other species.  [default = none].")
-#parser.add_option("-r", dest="reduced", default="", help="If this option is set, a directory called SM_annot must be in the current directory with annotation files in rr format. This format is produced by the remred.py script, which removes redundancy in large redundant annotation files such as mammalian EST alignment files. Annotation coordinates are O-based, in UCSC fashion. The argument is a coma separated list of species for which annotations files are provided in the SM_annot directory. When this option is set, no output will be produced in regions of the multiple alignements of the MAF file that overlap the annotations in these genomes. This option can be combined with -a for other species. In general, using this option instead of -a reduces computation time [default = none]")
-
-CAT = "hg19,vicPac1,dasNov2,otoGar1,felCat3,galGal3,panTro2,bosTau4,canFam2,turTru1,loxAfr3,fr2,gorGor1,cavPor3,eriEur1,equCab2,dipOrd1,anoCar1,calJac1,oryLat2,pteVam1,myoLuc1,mm9,micMur1,monDom5,ponAbe2,ochPri2,ornAna1,oryCun2,rn4,rheMac2,proCap1,sorAra1,choHof1,speTri1,gasAcu1,tarSyr1,echTel1,tetNig2,tupBel1,macEug1,xenTro2,taeGut1,danRer6"
-reduced_exons = "vicPac1,dasNov2,otoGar1,galGal3,bosTau4,canFam2,turTru1,loxAfr3,fr2,cavPor3,eriEur1,equCab2,dipOrd1,anoCar1,oryLat2,pteVam1,myoLuc1,mm9,micMur1,monDom5,ochPri2,ornAna1,oryCun2,rn4,proCap1,sorAra1,choHof1,speTri1,gasAcu1,tarSyr1,echTel1,tetNig2,tupBel1,macEug1,xenTro2,taeGut1,danRer6,panTro2,ponAbe2,rheMac2,gorGor1"
-reduced_exons_repeats = "hg19"
+parser.add_option("-c", dest="CAT", default="", help="Catalogue of species (at least 2) to consider when searching the MAF file for the regions of interest. Argument is a coma separated list of species, with species names as indicated in the MAF file. [compulsory ; default = None]")
+parser.add_option("-a", dest="annot", default="", help="If this option is set, a directory called SM_annot must be in the current directory with annotation files in UCSC format (>10 tab separated columns) called species_annot.ucsc, where species is replaced by the species names as indicated in the MAF file. Annotation coordinates are O-based, in UCSC fashion. The argument is a coma separated list of species for which annotations files are provided in the SM_annot directory. When this option is set, no output will be produced in regions of the multiple alignements of the MAF file that overlap the annotations in these genomes. Generally these annotations are non redundant (e.g. ensembl genes) and will be used as provided. This option can be combined with -r for other species.  [default = none].")
+parser.add_option("-r", dest="reduced", default="", help="If this option is set, a directory called SM_annot must be in the current directory with annotation files in rr format. This format is produced by the remred.py script, which removes redundancy in large redundant annotation files such as mammalian EST alignment files. Annotation coordinates are O-based, in UCSC fashion. The argument is a coma separated list of species for which annotations files are provided in the SM_annot directory. When this option is set, no output will be produced in regions of the multiple alignements of the MAF file that overlap the annotations in these genomes. This option can be combined with -a for other species. In general, using this option instead of -a reduces computation time [default = none]")
 
 (options, args) = parser.parse_args()
 
@@ -88,38 +74,37 @@ esp0 = ''
 
 ## Module to parse the catalogue of species
 
-#if len(options.CAT) == 0:
-    #print >> sys.stderr, "ERROR: Please provide at least two valid species names"
-#else:
-    #scat= str(options.CAT).split(",")
-    #lsc=len(scat)
-scat= CAT.split(",")
-lsc=len(scat)
+if len(options.CAT) == 0:
+    print >> sys.stderr, "ERROR: Please provide at least two valid species names"
+else:
+    scat= str(options.CAT).split(",")
+    lsc=len(scat)
+
+# Module to read annotation files in UCSC format
+if len(options.annot) > 0:
+    lis1=str(options.annot).split(",")
+    for sp in lis1:
+        if sp not in scat:
+            print >> sys.stderr, "ERROR: species", sp, "not in species catalogue"
+            sys.exit(0)
+        else:
+            fle= CD+"/SM_annot/"+str(sp)+"_annotation.ucsc"
+            print >> sys.stderr, "Reading annotation file", fle
+            for ligne in open(fle,'r').xreadlines():
+                champs=ligne.split("\t")
+                cle=sp + "." + champs[0]
+                annot[cle]=eval(champs[1])
+	    print >> sys.stderr," Done... "    
 
 # Module to read annotation files in 'rr' (non redundant) format
-if len(reduced_exons) > 1:
-    lis2=reduced_exons.split(",")
+if len(options.reduced) > 1:
+    lis2=str(options.reduced).split(",")
     for sp in lis2:
         if sp not in scat:
-            print "ERROR: species", sp, "not in species catalogue"
+            print >> sys.stderr, "ERROR: species", sp, "not in species catalogue"
             sys.exit(0)
         else:
-	    fle= CD+"/SM_annot_avril12/"+str(sp)+"_annotation_exons.rr"
-            print >> sys.stderr, "Reading non redundant annotation file", fle
-            for ligne in open(fle,'r').xreadlines():
-                champs=ligne.split("\t")
-                cle=sp + "." + champs[0]
-                annot[cle]=eval(champs[1])
-        print >> sys.stderr," Done... "     
-
-if len(reduced_exons_repeats) > 1:
-    lis2=reduced_exons_repeats.split(",")
-    for sp in lis2:
-        if sp not in scat:
-            print "ERROR: species", sp, "not in species catalogue"
-            sys.exit(0)
-        else:
-            fle= CD+"/SM_annot_avril12/"+str(sp)+"_annotation.rr"
+	    fle= CD+"/SM_annot/"+str(sp)+"_annotation.rr"
             print >> sys.stderr, "Reading non redundant annotation file", fle
             for ligne in open(fle,'r').xreadlines():
                 champs=ligne.split("\t")
@@ -128,8 +113,7 @@ if len(reduced_exons_repeats) > 1:
         print >> sys.stderr," Done... "     
 
 
-
-if len(reduced_exons) > 0 or len(reduced_exons_repeats) > 0:
+if len(options.annot) > 0 or len(options.reduced) > 0:
     for i in annot:
         z=z+len(annot[i])
 
@@ -137,7 +121,6 @@ if len(reduced_exons) > 0 or len(reduced_exons_repeats) > 0:
 
 
 lis=lis1+lis2
-#print >> sys.stderr, "reading", sys.argv[1], "with W=", W, "ID=", ID, "MAS=", MAS, "X=", X, "F=", F, "M=", M
 print >> sys.stderr, "reading", sys.argv[1], "with W=", W, "ID=", ID, "MAS=", MAS, "X=", X, "F=", F, "T=", T, "N=", N
 print >> sys.stderr, "considering the following", lsc, "species", scat
 
@@ -148,7 +131,7 @@ print >> sys.stderr, "considering the following", lsc, "species", scat
 # Function to check the strand of sequence and provide coordinate on + strand in 1-based counting
 def minusflip(ch):
     if ch[4]=="-":
-        ch[2]=int(ch[5])-(int(ch[2]) + 1  + int(ch[3])) + 2   # +1 pour se remettre en base 1; +2 pour tenir compte des 2 soustractions 
+        ch[2]=int(ch[5])-(int(ch[2]) + 1  + int(ch[3])) + 2
     return ch
 
 
@@ -161,22 +144,15 @@ def getcol(b,i):
 
 
 # Function to compute some stats on a given column of the multiple alignment, modified to take into account possible mismatches (return "1" if identity criterion is ok => "pseudo-identity")
-# Modifie au 20/02/12 pour ne calculer la similarite que sur les especes ne presentant pas de gap a la position consideree (les colonnes avec plus de 50% de gap ne sont de toute maniere pas considerees comme 'similaires').
 def colstat(l):
     ide=0
     cons=0
     D = {'A':0,'T':0,'G':0,'C':0,'-':0,'N':0,'ATGCN':0}
 
     for i in range(len(l)) :
-        D[str(l[i]).upper()]+=1 # met tout en majuscules*
+        D[str(l[i]).upper()]+=1
 	if str(l[i]) != '-' :
 		D['ATGCN'] += 1
-
-    #for b in ['A','T','G','C'] :
-    	#if D[b] >= float(len(ESP))*float(T)/100.0 :
-		#ide = 1
-	#if D[b] == len(ESP) :
-		#cons = 1
 
     if D['-'] < float(len(ESP))*50.0/100.0 :
 	for b in ['A','T','G','C'] :
@@ -202,9 +178,9 @@ def winstat(w):
     widpc=100.0*(float(wid)/float(len(w)))
     wstats.append(widpc)
 
-    wstats.append(w[0][len(ESP)])#1er score de la fenetre
-    wstats.append(w[len(w)-1][len(ESP)])#dernier score de la fenetre
-
+    wstats.append(w[0][len(ESP)])#1st score of the window
+    wstats.append(w[len(w)-1][len(ESP)])#last score of the window
+    
     return wstats
 
 # Function to filter out profiles that show low complexity (at least one base with frequency < 5%), overlap repeats or are too short
@@ -223,13 +199,8 @@ def myfilter(p):
     if len(p) < F:
         l=1
 
-    #if b1 < 0.05*(len(p)-b5-b6) or b2 < 0.05*(len(p)-b5-b6) or b3 < 0.05*(len(p)-b5-b6) or b4 < 0.05*(len(p)-b5-b6):
-        #l=2
     if b1 > float(L)*float(len(p)-b5)/100.0 or b2 > float(L)*float(len(p)-b5)/100.0 or b3 > float(L)*float(len(p)-b5)/100.0 or b4 > float(L)*float(len(p)-b5)/100.0:
     	l=2
-
-    #if len(set(p).intersection("atcg")) >0:
-        #l=3
 
     return l
 
@@ -434,9 +405,9 @@ for ligne in gzip.open(sys.argv[1], 'r').readlines():
 				
 				#Compute left & right extensions as long as unused anchor windows remain
 	    			while len(scorid) > 0:
-					scorid.sort()#trie les fenetres du score le plus faible au plus eleve. NB le tri ne s'applique donc qu'a la premiere valeur du vecteur ? (ie le score de similarite)
+					scorid.sort()#Sort windows from lowest to highest score. 
 					
-					last=len(scorid)-1 #fenetre de score le plus eleve
+					last=len(scorid)-1 #Window with highest score
 					
 					if testwin(scorid[last],W,ID) == 1:
 						
@@ -523,5 +494,5 @@ for ligne in gzip.open(sys.argv[1], 'r').readlines():
 			champs=minusflip(champs)
 			block[species[0]]=champs
 			cs=cs+1
-			ESP.append(species[0]) # vecteur gardant en memoire les especes (dans l'ordre des lignes correspondantes)
+			ESP.append(species[0]) # Vector with species (in the order as they appear in the block)
 			#print >> sys.stderr, esp0
