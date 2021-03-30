@@ -92,7 +92,7 @@ for a in anc :
   la = a.strip().split()
   for i in la :
     if i[0:5] == 'ENSG0' :
-      ANC[i] = la 
+    	ANC[i] = la 
       
 ## Lists genes homologous to the considered human gene (up to Coelomata).##
 file = bz2.BZ2File('ancGenes.Coelomata.list.bz2','r')
@@ -132,7 +132,6 @@ for s in size :
 	ls = s.strip().split('\t')
 	SIZE[ls[6]] = int(1000000*float(ls[4]))
 
-
 ###########
 ### Main ###
 ###########
@@ -147,7 +146,6 @@ file.close()
 file = gzip.open('genes_env_'+CHR+'.list.gz','w')
 
 for h in hum :
-	
 	lh = h.strip().split()
 	el = lh[4].split('_')[1] # CNE name (without species name)
 	UNIQ = {} # List of ancestral genes already analyzed, to avoid redundancies linked to paralogous modern genes.
@@ -158,12 +156,11 @@ for h in hum :
 		if len(i.split('_')) == 2 :
 			if i.split('_')[0] in LIST_SPECIES :
 				SPECIES.append(i.split('_')[0])
-	#print SPECIES
 	
 	# CNE and gene coordinates of corresponding species.
 	for s in SPECIES :
 		if s not in CNE and s in LIST_SPECIES :
-			GetCoordCNE('s+'_'+CHR+'.bed.gz',CNE,s)
+			GetCoordCNE(s+'_'+CHR+'.bed.gz',CNE,s)
 			GetCoord('genesST.'+LIST_SPECIES[s]+'.list.bz2',COO,s,'')
 	
 	# Neighbouring genes in Human

@@ -100,6 +100,7 @@ KEYS = [] # CNE identifiers
 SIZE = {} # dictionary of the number of species in which each CNE is present
 SCORE = {} # Dictionary CNE/genes/[scores0 scores1 scores2 dist_moy_scores1 Nbre_1_outgroups]
 test_tar = 0 # Test to check that at least one CNE has a putative target
+LIMIT = 1000000
 
 for c in cne :
   lc = c.split('\t')
@@ -117,34 +118,28 @@ KEYS.sort()
 for n in  KEYS : # for each CNE
 	c = 'U'+str(n)
 	SCORE[c] = {} # dictonary of each gene score for a given CNE
-	for i in CNE[c] : # for each species i
+	for i in CNE[c] : # pour chaque espece i
 		for j in CNE[c][i] :
 			lj = j.split('-')
-			
-			if len(lj) == 2 : # only one offspring gene (-> no ambiguity)
-          			if lj[1].split('_')[1] == '1' :
-                			score = 1
-                			dist = lj[1].split('_')[2]
-             			else :
-					score =  int(lj[1].split('_')[1])
-           
-            		 else : # several paralogous genes -> reviewed to identified to closest one
-                		test_tar = 1
-                		score = 0
-                		dist = 2000000
-                		for k in range(1,len(lj)) :
-                    			lk = lj[k].split('_')
-                    			if lk[1] == '1' :
-                        			score = 1
-                       				if int(lk[2]) < dist :
-                            				dist = lk[2]
-                    			if lk[1] == '2' and (score == 0 or score == 3) :
-                        			score = 2
-                    			if lk[1] == '3' and score == 0 :
-                        			score = 3 
-
+			if lj[1] == "0" :
+				score = 0
+				dist = 0
+			else :
+				test_tar = 1
+				score = 0
+				dist = LIMIT
+				for k in range(1,len(lj)) :
+					lk = lj[k].split('_')
+					if lk[1] == '1' :
+						score = 1
+						if int(lk[2]) < dist :
+							dist = lk[2]
+					if lk[1] == '2' and (score == 0 or score == 3) :
+						score = 2
+					if lk[1] == '3' and score == 0 :
+						score = 3
 			if SCORE[c].__contains__(lj[0]) == 0 :
-				SCORE[c][lj[0]] = [0,0,0,0,0,0] # 0:score of 0 and 3, 1:score of 1, 2:score of 2, 3:sum of distances if "1", 4:number of 1 scores
+				SCORE[c][lj[0]] = [0,0,0,0,0,0] 
 			if score == 1 :
 				SCORE[c][lj[0]][1] += float(SY[i])
 				SCORE[c][lj[0]][3] += int(dist)
@@ -176,7 +171,10 @@ if test_tar == 1 :
 			names = ''
 			for j in NEW[u[0]] :
 				if X.__contains__(j) :
-					names = names + COUR[j] + '/'
+					if j in COUR:
+						names = names + COUR[j] + '/'
+					else:
+						names = names + j + '/'
 			
 			file.write(names[0:len(names)-1]+' ')
 			ligne = ligne + names[0:len(names)-1]+' '

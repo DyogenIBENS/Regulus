@@ -1,4 +1,3 @@
-
 anoCar1	Anolis.carolinensis	Lizard	1.7	0.52	Anocar	anoCar2
 bosTau4	Bos.taurus	Cow	2.65	0.81	Bostau	bosTau6
 calJac1	Callithrix.jacchus	Marmoset	2.76	0.84	Caljac	calJac3
@@ -15,7 +14,7 @@ felCat3	Felis.catus	Cat	1.64	0.5	Felcat	felCat3
 fr2	Takifugu.rubripes	Fugu	0.39	0.12	Takrub	fr2
 galGal3	Gallus.gallus	Chicken	1.05	0.32	Galgal	galGal3
 gasAcu1	Gasterosteus.aculeatus	Stickleback	0.45	0.14	Gasacu	gasAcu1
-gorGor1	Gorilla.gorilla	Gorilla	2.83	0.86	Gorgor	gorGor1
+gorGor3	Gorilla.gorilla	Gorilla	2.83	0.86	Gorgor	gorGor3
 hg19	Homo.sapiens	Human	3.29	1	Homsap	hg19
 loxAfr3	Loxodonta.africana	Elephant	3.12	0.95	Loxafr	loxAfr3
 macEug1	Macropus.eugenii	Wallaby	2.55	0.78	Maceug	macEug1
